@@ -12,8 +12,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css">
 </head>
 <body>
 
@@ -36,7 +35,7 @@
   
   <div class="name">
     <span class="titlu-manga">Mawanginde Yongsa ga Neomu Maneum</span>
-    <span>Alternative Names:</span>
+    <span>Alternative Titles:</span>
 <div class="altNames">
   <span><span class="fi fi-gb fis rounded-circle mr-1"></span> I’m the Demon King, but There Are Too Many Heroes</span>
   <span><span class="fi fi-gb fis rounded-circle mr-1"></span> The Demon King Overrun by Heroes</span>
@@ -123,19 +122,80 @@
        </article>
      </div>
    </div>
-
+ 
+       <!--Bug Page-->
 
       <div class="bugPage" id="bugPage">
-    <div class="container">
-     <span>BUG PAGE</span>
-  </div>
+      <div class="container-space">
+        <div class="container">
+        <span class="titleBP">Report an issue</span>
+        <div class="issue-type">
+          <span>Select the issue type:</span>
+          <select id="issueType" required>
+            <option value disabled selected>Select an option</option>
+            <option value="Broken Pages">Broken Pages</option>
+            <option value="Wrong Chapter">Wrong Chapter</option>
+            <option value="Images not loading">Images not loading</option>
+            <option value="Translation Issue">Translation Issue</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+         
+        <div class="cutie-txtarea">
+          <span>Description (optional):</span>
+          <textarea maxlength="500" id="description" name="description" rows="4" cols="50"></textarea>
+        </div>
+          <input id="reportFormSubmit" type="submit" value="Submit">
+        </div>
+    </div>
 </div>
 
 
  </div>
 
+  <!--partea dreapta cover-->
+  <div class="container-cover">
+    <img src="cover.jpg">
+    <div class="air-date">
+      <button>S</button>
+      <button>M</button>
+      <button>T</button>
+      <button>W</button>
+      <button>T</button>
+      <button>F</button>
+      <button class="drops">S</button>
+    </div>
+    <div class="details">
+
+     <div class="aparitie">
+      <span>Release year</span>
+      <span>2025</span>
+     </div>
+
+     <div class="views">
+      <span>Total views</span>
+      <span id="views">???</span>
+     </div>
+
+     <div class="autor">
+      <span>Autor</span>
+      <span>Yoon Seon</span>
+     </div>
+
+     <div class="totalCh">
+      <span>Total Chapters</span>
+      <span id="totalCh">??</span>
+     </div>
 
 
+      <div class="status">
+      <span>Status</span>
+      <span>ongoing</span>
+     </div>
+
+     </div>
+    </div>
+  </div>
 
 
 
@@ -144,13 +204,31 @@
 </div>
 
 <div class="readPage" id="readPage">
-
+  <!--cahptar imgs-->
 </div>
 
 
 
 <footer>
-  <!--...-->
+<div class="cutie-footer">
+  <div class="titlu-footer" id="footer-homebtn">
+    <img src="cover.jpg">
+    <span> The Demon King Overrun by Heroes</span>
+  </div>
+  <p>Read Comics, manga, manhua, manhwa, translated swiftly: Vortex, your ultimate library.</p>
+  <div class="links-footer">
+    <a href="#">buy me a Ko-fi</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms and Conditions</a>
+    <a href="#">DMCA</a>
+  </div>
+  <div class="footer-break"></div>
+  <button>Made by Hajime</button>
+  <div class="cutie-foot-txt-jos">
+    <span>© 2026 All Rights Reserved</span>
+    <span>v1.5</span>
+  </div>
+</div>
 </footer>
 
 
