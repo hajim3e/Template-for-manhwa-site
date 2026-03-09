@@ -72,9 +72,19 @@ background: #38383a;
 }
 
 
-/*Home Page */
+/*Home Page Phone*/
 
-.homePage{
+.homePagePhone{
+  display: none;
+}
+
+
+
+
+
+/*Home Page PC*/
+
+.homePagePC{
   background: #09090B;
   width: 100%;
   min-height: 100vh;
@@ -84,7 +94,7 @@ background: #38383a;
 
 .banner{
   position: relative;
-  width: 100%;
+  height: clamp(180px, 25vw, 280px);
   height: 280px;
   overflow: hidden;
   user-select: none;
@@ -366,8 +376,6 @@ font-size: 12px;
     color: white;
     font-size: 16px;
     font-family: Poppins;
-
-
 }
 
 .chBtns-cutie button:hover{
@@ -379,7 +387,6 @@ transition: .3s;
 .cutie-txt{
   display: flex;
   flex-direction: column;
-  
 }
 
 .cutie-input{
@@ -572,6 +579,7 @@ transition: .3s;
   outline: none;
   border-radius: 8px;
   border: 1px solid #a3a3a38f; 
+  width: 480px;
 }
 
 #reportFormSubmit{
@@ -633,7 +641,7 @@ transition: .3s;
 }
 
 .details{
-  width: 90%;
+  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -713,12 +721,7 @@ display: flex;
   font-weight: bold;
 }
 
-.cutie-footer p{
-  font-family: Poppins;
-  font-size: 14px;
-  margin-top: 10px;
-  color: #a3a3a3;
-}
+
 
 .links-footer{
   margin-top: 20px;
@@ -805,12 +808,20 @@ display: flex;
 
 .titlu-manga{
   font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.tags{
+  margin-top: 20px;
 }
 
 .cutie-tot{
   width: 650px;
 }
 
+.descrip{
+  margin-top: 20px;
+}
 
 .descrip p{
   width: 500px;
@@ -843,8 +854,142 @@ display: flex;
 
 @media (max-width: 980px) {
 
+*{
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
+}
 
 
+.homePagePC{
+  display: none;
+}
+
+
+.homePagePhone{
+  background: #09090B;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-family: Poppins;
+  display: block;
+}
+
+.banner{
+  width: 100%;
+}
+
+.banner img{
+  width: 100%;
+  object-fit: cover;
+}
+
+
+
+.chBtns-cutie{
+  width: 100%;
+}
+
+.chBtns-cutie button{
+  width: 100%;
+  flex: 1;
+  min-width: 0;
+}
+
+
+.container-space-phone{
+  padding: 0px 16px 0px 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  height: fit-content;
+}
+
+.container-cover{
+  height: fit-content;
+  position: relative;
+  top: -180px;
+}
+   
+.container-cover img{
+  object-fit: cover;
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+.descrip{
+  width: fit-content;
+}
+
+.details{
+  width: 100%;
+}
+
+.cutie-tot{
+  top: -180px;
+  position: relative;
+  align-items: center;
+  width: 100%;
+}
+
+
+
+#issueTypePhone{
+  width: 480px;
+  height: 35px;
+  cursor: pointer;
+
+  background: transparent;
+
+  border-radius: 8px;
+  outline: none;      
+  border: 1px solid #a3a3a38f; 
+  color: white;
+  font-size: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-left: 10px;
+}
+
+
+
+.switchBtn-cutie{
+  display: flex;
+  justify-content: center;
+}
+
+.box-Ch{
+  grid-template-columns: repeat(2, 1fr); 
+  padding: 0px 2rem 0px 2rem;
+}
+
+
+.cutie-footer{
+  padding-top: 0px;
+  margin-top: -80px;
+}
+
+
+.bugPagePhone{
+  width: 100%;
+  height: 100%;
+  background: #09090B;
+  display: none;
+}
+
+.bugPagePhone .container{
+  margin-top: 20px;
+  width: 520px;
+  height: 340px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 16px 16px 16px 16px;
+  user-select: none;
+}
 
 
 }
@@ -852,7 +997,113 @@ display: flex;
 
 
 
-@media (max-width: 770px) {
+@media (max-width: 590px) {
 
+.titlu-manga{
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 20px;
+}
+
+.tags{
+  margin-top: 20px;
+}
+
+.descrip{
+  margin-top: 20px;
+}
+
+.descrip p{
+  width: 100%;
+  max-width: 460px;
+}
+
+
+
+#searchChPhone{
+  width: 290px;
+}
+
+.box-Ch{
+  grid-template-columns: 1fr;
+}
+
+.bugPagePhone .container{
+  width: 100%;
+  max-width: 470px;
+}
+
+#issueTypePhone{
+  width: 100%;
+  max-width: 400px;
+}
+
+#descriptionPhone{
+  width: 100%;
+  max-width: 400px;
+}
+
+
+/*footer*/
+
+.titlu-footer{
+  width: 340px;
+}
+
+.titlu-footer span{
+  font-size: 15px;
+}
+
+
+
+.links-footer{
+ margin-top: 40px;
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.links-footer a{
+  width: fit-content;
+}
+
+}
+
+@media (max-width: 360px) {
+
+
+ .cutie-input{
+  width: 100%;
+ }
+
+ .titlu-footer {
+  width: 100%;
+ }
+
+
+
+.titlu-footer span{
+  width: 150px;
+}
+
+.chBtns-cutie{
+  width: 270px;
+}
+
+
+.chBtns-cutie .cutie-txt{
+  width: 120px;
+}
+
+ #searchChPhone{
+  width: 100%;
+  font-size: 12px;
+ }
+
+
+ #searchChPhone::placeholder{
+  font-size: 10px;
+ }
 
 }

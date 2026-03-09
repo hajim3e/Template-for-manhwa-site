@@ -1,17 +1,37 @@
-//logo home btn
-const homePage = document.getElementById('homePage');
-const logoBtn = document.getElementById('logoBtn');
+//ChPage/BugPage Phone
+const chPagePhone = document.getElementById('chaptersPagePhone');
+const bugPagePhone = document.getElementById('bugPagePhone');
 
-logoBtn.addEventListener('click', () =>{
-   homePage.style.display = 'block';
-   //restulPages
+const showChPhoneBtn = document.getElementById('showChPhone');
+const showBugPhoneBtn = document.getElementById('showBugPhone');
+
+const sliderPhone = document.getElementById('sliderPhone');
+
+showChPhoneBtn.classList.add('active');
+
+
+showChPhoneBtn.addEventListener('click', () =>{
+  chPagePhone.style.display = 'block';
+  bugPagePhone.style.display = 'none';
+
+  showChPhoneBtn.classList.add('active');
+  showBugPhoneBtn.classList.remove('active');
+
+  sliderPhone.style.transform = 'translateX(0px)';
+});
+
+showBugPhoneBtn.addEventListener('click', () =>{
+  chPagePhone.style.display = 'none';
+  bugPagePhone.style.display = 'block';
+
+  showChPhoneBtn.classList.remove('active');
+  showBugPhoneBtn.classList.add('active');
+
+  sliderPhone.style.transform = 'translateX(115px)';
 });
 
 
-
-
-//pages 
-
+//ChPage/BugPage PC
 const chPage = document.getElementById('chaptersPage');
 const bugPage = document.getElementById('bugPage');
 
