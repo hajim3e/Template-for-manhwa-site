@@ -77,7 +77,7 @@ background: #38383a;
 .homePage{
   background: #09090B;
   width: 100%;
-  height: 100dvb;
+  min-height: 100vh;
   color: white;
   font-family: Poppins;
 }
@@ -260,17 +260,43 @@ font-size: 12px;
 
 
 .switchBtn{
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
+  justify-content: space-evenly;
   background: #27272A;
-  width: 250px;
+  width: 240px;
   height: 45px;
-  padding: 4px 4px 4px 4px;
+  padding: 4px;
   border-radius: 5px;
 
 }
+
+.switchBtn button{
+  width: 110px;
+  height: 32px;
+  border-radius: 3px;
+  border: none;
+  font-size: 15px;
+  font-family: Poppins;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.slider{
+  position: absolute;
+  width: 110px;
+  height: 32px;
+  background: #09090B;
+  border-radius: 3px;
+  left: 7px;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+
 
 .switchBtn .showCh{
   width: 110px;
@@ -289,7 +315,7 @@ font-size: 12px;
 }
 
 .switchBtn .showCh.active{
-  background: #09090B;
+  background: transparent;
 }
 
 .switchBtn .showBug{
@@ -309,7 +335,7 @@ font-size: 12px;
 }
 
 .switchBtn .showBug.active{
-  background: #09090B;
+  background: transparent;
 }
 
 
@@ -759,4 +785,74 @@ display: flex;
 .cutie-foot-txt-jos span:last-child{
   color: #a3a3a3;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+
+
+@media (max-width: 1280px) {
+
+ .banner img{
+   height: clamp(180px, 25vw, 320px);
+
+}
+
+.continer-space{
+  gap: 50px;
+}
+
+
+.titlu-manga{
+  font-size: 25px;
+}
+
+.cutie-tot{
+  width: 650px;
+}
+
+
+.descrip p{
+  width: 500px;
+}
+
+
+.container-cover{
+  width: 200px;
+  height: 280px;
+}
+
+.container-cover img{
+  object-fit: fill;
+}
+
+
+
+.box-Ch article{
+  height: 90px;
+}
+
+.box-Ch .text-Ch{
+  font-size: 14px;
+}
+
+
+}
+
+
+
+@media (max-width: 980px) {
+
+
+
+
+
+}
+
+
+
+
+@media (max-width: 770px) {
+
+
 }

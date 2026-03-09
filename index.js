@@ -18,6 +18,8 @@ const bugPage = document.getElementById('bugPage');
 const showChBtn = document.getElementById('showCh');
 const showBugBtn = document.getElementById('showBug');
 
+const slider = document.getElementById('slider');
+
 showChBtn.classList.add('active');
 
 
@@ -27,6 +29,8 @@ showChBtn.addEventListener('click', () =>{
 
   showChBtn.classList.add('active');
   showBugBtn.classList.remove('active');
+
+  slider.style.transform = 'translateX(0px)';
 });
 
 
@@ -36,6 +40,8 @@ showBugBtn.addEventListener('click', () =>{
 
   showChBtn.classList.remove('active');
   showBugBtn.classList.add('active');
+
+  slider.style.transform = 'translateX(115px)';
 });
 
 
