@@ -1,0 +1,19 @@
+1.Functionalitate 
+2.Pagininile footer
+3.reading Page
+4.sa completez footer Pages cu linkul meu etc. !!!!!
+
+
+
+.policyBackBtnPC a,.termsBackBtnPC a,.dmcaBackBtnPC a{
+  text-decoration: 1px underline red;
+  font-size: 18px;
+  color: #a1a1a1;               
+  cursor: pointer;
+}  
+
+
+
+.policyBackBtnPhone a,.termsBackBtnPhone a,.dmcaBackBtnPhone a{
+  display: none;   
+}

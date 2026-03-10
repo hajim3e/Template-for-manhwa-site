@@ -75,3 +75,166 @@ showBugBtn.addEventListener('click', () =>{
 sortBtn.addEventListener('click', () =>{
   arrowupIcon.classList.toggle('rotit');
 });
+
+
+//home pages
+  const homePagePC = document.getElementById('homePagePC');
+  const homePagePhone = document.getElementById('homePagePhone');
+
+  const logoBtnPC = document.getElementById('logoBtnPC');
+  const logoBtnPhone = document.getElementById('logoBtnPhone');
+
+  logoBtnPC.addEventListener('click', ()=>{
+    homePagePC.style.display = 'block';
+    //restul apginilor
+  });
+
+  logoBtnPhone.addEventListener('click', ()=>{
+    homePagePhone.style.display = 'block';
+    //restul apginilor
+  });
+
+//scroll up function
+
+function scrollTopSmooth(){
+  setTimeout(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }, 50);
+}
+
+//Pages footer links
+  const ppPage = document.getElementById('PrivacyPolicy-PAGE');
+  const termsPage = document.getElementById('TermsAndConditions-PAGE');
+  const dmcaPage = document.getElementById('DMCA-PAGE');
+  
+//bkackBtns footer links
+
+//PolicyBTns
+  const policyBackBtnPC = document.getElementById('policyBackBtnPC');
+  const policyBackBtnPhone = document.getElementById('policyBackBtnPhone');
+
+//TermsBTns
+  const termsBackBtnPC = document.getElementById('termsBackBtnPC');
+  const termsBackBtnPhone = document.getElementById('termsBackBtnPhone');
+
+//DmcaBTns
+  const dmcaBackBtnPC = document.getElementById('dmcaBackBtnPC');
+  const dmcaBackBtnPhone = document.getElementById('dmcaBackBtnPhone');
+
+
+  //Back btns PC/Phone
+
+//Policy
+policyBackBtnPC.addEventListener('click', (e) =>{
+    e.preventDefault();
+    
+   ppPage.style.display = 'none';
+   homePagePC.style.display = 'block';
+   footer.style.display = 'block';
+
+   scrollTopSmooth();
+});
+
+policyBackBtnPhone.addEventListener('click', (e) =>{
+    e.preventDefault();
+
+   ppPage.style.display = 'none';
+   homePagePhone.style.display = 'block';
+   footer.style.display = 'block';
+
+   scrollTopSmooth();
+});
+
+//Terms
+termsBackBtnPC.addEventListener('click', (e) =>{
+    e.preventDefault();
+
+   termsPage.style.display = 'none';
+   homePagePC.style.display = 'block';
+   footer.style.display = 'block';
+
+   scrollTopSmooth();
+});
+
+termsBackBtnPhone.addEventListener('click', (e) =>{
+    e.preventDefault();
+
+   termsPage.style.display = 'none';
+   homePagePhone.style.display = 'block';
+   footer.style.display = 'block';
+
+   scrollTopSmooth();
+});
+
+//Dmca
+dmcaBackBtnPC.addEventListener('click', (e) =>{
+    e.preventDefault();
+
+   dmcaPage.style.display = 'none';
+   homePagePC.style.display = 'block';
+   footer.style.display = 'block';
+
+   scrollTopSmooth();
+});
+
+dmcaBackBtnPhone.addEventListener('click', (e) =>{
+    e.preventDefault();
+
+   dmcaPage.style.display = 'none';
+   homePagePhone.style.display = 'block';
+   footer.style.display = 'block';
+
+   scrollTopSmooth();
+});
+
+
+
+
+
+//links footer btns
+  const footer = document.getElementById('footer');
+
+  const policyBtnFooter = document.getElementById('policyBtnFooter');
+  const termsBtnFooter = document.getElementById('termsBtnFooter');
+  const dmcaBtnFooter = document.getElementById('dmcaBtnFooter');
+
+
+policyBtnFooter.addEventListener('click', (e) =>{
+    e.preventDefault();
+   
+   ppPage.style.display = 'block';
+   homePagePhone.style.display = 'none';
+   homePagePC.style.display = 'none';
+   footer.style.display = 'none';
+
+   scrollTopSmooth();
+});
+
+
+termsBtnFooter.addEventListener('click', (e) =>{
+    e.preventDefault();
+
+   termsPage.style.display = 'block';
+   homePagePhone.style.display = 'none';
+   homePagePC.style.display = 'none';
+   footer.style.display = 'none';
+
+   scrollTopSmooth();
+});
+
+dmcaBtnFooter.addEventListener('click', (e) =>{
+    e.preventDefault();
+
+   dmcaPage.style.display = 'block';
+   homePagePhone.style.display = 'none';
+   homePagePC.style.display = 'none';
+   footer.style.display = 'none';
+
+    scrollTopSmooth();
+});
+
+
+
