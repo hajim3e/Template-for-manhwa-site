@@ -105,136 +105,125 @@ function scrollTopSmooth(){
   }, 50);
 }
 
-//Pages footer links
-  const ppPage = document.getElementById('PrivacyPolicy-PAGE');
-  const termsPage = document.getElementById('TermsAndConditions-PAGE');
-  const dmcaPage = document.getElementById('DMCA-PAGE');
-  
-//bkackBtns footer links
 
-//PolicyBTns
-  const policyBackBtnPC = document.getElementById('policyBackBtnPC');
-  const policyBackBtnPhone = document.getElementById('policyBackBtnPhone');
+// Obiect cu toate paginile
+const pages = {
+  homePC: document.getElementById('homePagePC'),
+  homePhone: document.getElementById('homePagePhone'),
+  policy: document.getElementById('PrivacyPolicy-PAGE'),
+  terms: document.getElementById('TermsAndConditions-PAGE'),
+  dmca: document.getElementById('DMCA-PAGE'),
+  footer: document.getElementById('footer')
+};
 
-//TermsBTns
-  const termsBackBtnPC = document.getElementById('termsBackBtnPC');
-  const termsBackBtnPhone = document.getElementById('termsBackBtnPhone');
+// Ascunde toate paginile
+function hideAllPages() {
+  for (let key in pages) {
+    pages[key].style.display = 'none';
+  }
+}
 
-//DmcaBTns
-  const dmcaBackBtnPC = document.getElementById('dmcaBackBtnPC');
-  const dmcaBackBtnPhone = document.getElementById('dmcaBackBtnPhone');
+// Arată pagina dorită
+function showPage(page) {
+  hideAllPages();
+
+  switch(page){
+    case 'homePC':
+    case 'homePhone':
+      pages[page].style.display = 'block';
+      pages['footer'].style.display = 'block';
+      break;
+    case 'policy':
+    case 'terms':
+    case 'dmca':
+      pages[page].style.display = 'block';
+      pages['footer'].style.display = 'none';
+      break;
+  }
+}
 
 
-  //Back btns PC/Phone
 
-//Policy
-policyBackBtnPC.addEventListener('click', (e) =>{
-    e.preventDefault();
-    
-   ppPage.style.display = 'none';
-   homePagePC.style.display = 'block';
-   footer.style.display = 'block';
+window.addEventListener('load', () => {
+    const hash = window.location.hash;
 
-   scrollTopSmooth();
-});
-
-policyBackBtnPhone.addEventListener('click', (e) =>{
-    e.preventDefault();
-
-   ppPage.style.display = 'none';
-   homePagePhone.style.display = 'block';
-   footer.style.display = 'block';
-
-   scrollTopSmooth();
-});
-
-//Terms
-termsBackBtnPC.addEventListener('click', (e) =>{
-    e.preventDefault();
-
-   termsPage.style.display = 'none';
-   homePagePC.style.display = 'block';
-   footer.style.display = 'block';
-
-   scrollTopSmooth();
-});
-
-termsBackBtnPhone.addEventListener('click', (e) =>{
-    e.preventDefault();
-
-   termsPage.style.display = 'none';
-   homePagePhone.style.display = 'block';
-   footer.style.display = 'block';
-
-   scrollTopSmooth();
-});
-
-//Dmca
-dmcaBackBtnPC.addEventListener('click', (e) =>{
-    e.preventDefault();
-
-   dmcaPage.style.display = 'none';
-   homePagePC.style.display = 'block';
-   footer.style.display = 'block';
-
-   scrollTopSmooth();
-});
-
-dmcaBackBtnPhone.addEventListener('click', (e) =>{
-    e.preventDefault();
-
-   dmcaPage.style.display = 'none';
-   homePagePhone.style.display = 'block';
-   footer.style.display = 'block';
-
-   scrollTopSmooth();
+    switch(hash){
+        case '#policy':
+            showPage('policy');
+            break;
+        case '#terms':
+            showPage('terms');
+            break;
+        case '#dmca':
+            showPage('dmca');
+            break;
+        default:
+            if(window.innerWidth < 980){
+                showPage('homePhone');
+            } else {
+                showPage('homePC');
+            }
+    }
 });
 
 
 
-
-
-//links footer btns
-  const footer = document.getElementById('footer');
-
-  const policyBtnFooter = document.getElementById('policyBtnFooter');
-  const termsBtnFooter = document.getElementById('termsBtnFooter');
-  const dmcaBtnFooter = document.getElementById('dmcaBtnFooter');
-
-
-policyBtnFooter.addEventListener('click', (e) =>{
-    e.preventDefault();
-   
-   ppPage.style.display = 'block';
-   homePagePhone.style.display = 'none';
-   homePagePC.style.display = 'none';
-   footer.style.display = 'none';
-
-   scrollTopSmooth();
+window.addEventListener('resize', () => {
+    if(window.location.hash === ''){
+        if(window.innerWidth < 980){
+            showPage('homePhone');
+        } else {
+            showPage('homePC');
+        }
+    }
 });
 
 
-termsBtnFooter.addEventListener('click', (e) =>{
+
+// footer buttons
+document.getElementById('policyBtnFooter').addEventListener('click', e => {
     e.preventDefault();
-
-   termsPage.style.display = 'block';
-   homePagePhone.style.display = 'none';
-   homePagePC.style.display = 'none';
-   footer.style.display = 'none';
-
-   scrollTopSmooth();
-});
-
-dmcaBtnFooter.addEventListener('click', (e) =>{
-    e.preventDefault();
-
-   dmcaPage.style.display = 'block';
-   homePagePhone.style.display = 'none';
-   homePagePC.style.display = 'none';
-   footer.style.display = 'none';
+    window.location.hash = '#policy';
+    showPage('policy');
 
     scrollTopSmooth();
 });
 
+document.getElementById('termsBtnFooter').addEventListener('click', e => {
+    e.preventDefault();
+    window.location.hash = '#terms';
+    showPage('terms');
 
+    scrollTopSmooth();
+});
 
+document.getElementById('dmcaBtnFooter').addEventListener('click', e => {
+    e.preventDefault();
+    window.location.hash = '#dmca';
+    showPage('dmca');
+
+    scrollTopSmooth();
+});
+
+// back buttons PC/Phone
+const backButtons = [
+    {btn: 'policyBackBtnPC', page: 'policy'},
+    {btn: 'policyBackBtnPhone', page: 'policy'},
+    {btn: 'termsBackBtnPC', page: 'terms'},
+    {btn: 'termsBackBtnPhone', page: 'terms'},
+    {btn: 'dmcaBackBtnPC', page: 'dmca'},
+    {btn: 'dmcaBackBtnPhone', page: 'dmca'},
+];
+
+backButtons.forEach(item => {
+    const button = document.getElementById(item.btn);
+    button.addEventListener('click', e => {
+        e.preventDefault();
+        window.location.hash = ''; // hash gol = homepage
+        if(window.innerWidth < 980){
+            showPage('homePhone');
+        } else {
+            showPage('homePC');
+        }
+    });
+});
