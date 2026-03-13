@@ -647,7 +647,6 @@ transition: .3s;
   
   border: none;
   border-radius: 5px;
-  cursor: pointer;
   font-family: Poppins;
   font-size: 15px;
 }
@@ -1165,6 +1164,53 @@ display: flex;
   box-sizing: border-box;
 }
 
+/*Bug page */
+
+#issueTypePhone{
+  width: 100%;
+  max-width: 100%;
+  height: 35px;
+  cursor: pointer;
+
+  background: transparent;
+
+  border-radius: 8px;
+  outline: none;      
+  border: 1px solid #a3a3a38f; 
+  color: white;
+  font-size: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-left: 10px;
+}
+
+#issueTypePhone option{
+  background: #27272A;
+  color: white;
+  font-size: 14px;
+  
+}
+
+
+#descriptionPhone{
+  width: 100%;
+}
+
+
+#reportFormSubmitPhone{
+    width: 73px;
+  height: 34px;
+  
+  background: rgba(255, 0, 50, 0.5);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#reportFormSubmitPhone:active{
+    background: rgba(243, 115, 141, 0.5);
+}
 
 /*reading Page */
 
@@ -1311,7 +1357,7 @@ background: #38383a;
 
 
 
-#issueTypePhone{
+#issueType{
   width: 480px;
   height: 35px;
   cursor: pointer;
@@ -1446,15 +1492,10 @@ background: #38383a;
   max-width: 470px;
 }
 
-#issueTypePhone{
-  width: 100%;
-  max-width: 400px;
-}
 
-#descriptionPhone{
-  width: 100%;
-  max-width: 400px;
-}
+
+
+
 
 
 /*footer*/

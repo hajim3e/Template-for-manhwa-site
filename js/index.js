@@ -52,9 +52,45 @@ showBugBtn.addEventListener('click', () => {
 
 
 
+//Email Functionality
+
+  emailjs.init("wYgour0wMu3k6scw0"); 
 
 
+// PC
+document.getElementById("reportFormSubmit").addEventListener("click", function(e) {
+  e.preventDefault();
+  sendEmail("issueType", "description");
+});
 
+// Phone
+document.getElementById("reportFormSubmitPhone").addEventListener("click", function(e) {
+  e.preventDefault();
+  sendEmail("issueTypePhone", "descriptionPhone");
+});
+
+// Funcție comună
+function sendEmail(issueId, descId) {
+  const issueType = document.getElementById(issueId).value;
+  const description = document.getElementById(descId).value;
+
+  if (!issueType) { alert("Please select an issue type."); return; }
+
+  const templateParams = {
+    name: "Reader",
+    time: new Date().toLocaleString(),
+    message: description,
+    issueType: issueType
+  };
+
+  emailjs.send("service_n3eq64g", "template_lpxe0qa", templateParams)
+    .then(() => {
+      alert("Thank you! Your report has been sent.");
+      document.getElementById(descId).value = "";
+      document.getElementById(issueId).selectedIndex = 0;
+    })
+    .catch(err => alert("Oops! Something went wrong: " + err.text));
+}
 
 
 
