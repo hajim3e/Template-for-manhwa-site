@@ -95,6 +95,29 @@ function sendEmail(issueId, descId) {
 
 
 
+    // Fetch capitole și populare pentru toate box-Ch
+    fetch("http://localhost:3000/chapters")
+    .then(res => res.json())
+    .then(data => {
+        const boxes = document.querySelectorAll(".box-Ch"); // toate div-urile box-Ch
+
+        boxes.forEach(container => {
+            container.innerHTML = ""; // curățăm containerul înainte
+
+            data.forEach(ch => {
+                const a = document.createElement("a");
+                a.href = "readpage.html?url=" + encodeURIComponent(ch.link);
+                a.innerText = ch.title;
+
+                container.appendChild(a);
+            });
+        });
+    })
+    .catch(err => console.error("Fetch chapters error:", err));
+
+
+
+
 
 });
 

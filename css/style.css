@@ -478,16 +478,18 @@ transition: .3s;
   gap: 20px; 
 }
 
-.box-Ch article{
+.box-Ch a{
   border: 1px solid rgb(100, 100, 100);
   padding: 15px;
   border-radius: 8px;
   user-select: none;
   cursor: pointer;
   transition: .2s;
+  text-decoration: none;
+  color: white;
 }
 
-.box-Ch article:hover{
+.box-Ch a:hover{
   border: 1px solid rgba(255, 0, 50, 0.5);
   transition: .2s;
   transform: translateY(-2px); 
@@ -979,7 +981,13 @@ display: flex;
 }
 
 
-.btns-box button{
+.btns-box .bi-house{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+.btns-box button,.btns-box a{
   width: 35px;
   height: 35px;
   
@@ -992,6 +1000,12 @@ display: flex;
   border-radius: 3px;
 
   cursor: pointer;
+}
+
+
+.btns-box a:hover{
+    background: rgba(255, 0, 50, 1);
+
 }
 
 .btns-box button:hover{
@@ -1002,28 +1016,7 @@ display: flex;
       background: rgb(241, 126, 149);
 }
 
-#readPageHomeBtn{
-  width: 35px;
-  height: 35px;
-  
-  color: white;
-  font-family: Poppins;
-  font-size: 20px;
-  background: rgba(255, 0, 50, 0.5);
 
-  border: none;
-  border-radius: 3px;
-
-  cursor: pointer;
-}
-
-#readPageHomeBtn button:hover{
-    background: rgba(255, 0, 50, 1);
-}
-
-#readPageHomeBtn button:active{
-      background: rgb(241, 126, 149);
-}
 
 /*Btns jos*/
 
@@ -1038,7 +1031,13 @@ display: flex;
  }
 
 
-.btns-box-jos button{
+.btns-box-jos .bi-house{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+.btns-box-jos button,.btns-box-jos a{
   width: 35px;
   height: 35px;
   
@@ -1051,6 +1050,16 @@ display: flex;
   border-radius: 3px;
 
   cursor: pointer;
+}
+
+
+.btns-box-jos a:hover{
+    background: rgba(255, 0, 50, 1);
+
+}
+
+.btns-box-jos button:active{
+      background: rgb(241, 126, 149);
 }
 
 .btns-box-jos button:hover{
@@ -1072,10 +1081,11 @@ display: flex;
 
 }
 
-.chapter-box img{
+#images{
   width: 800px;
   height: fit-content;
   object-fit: contain;
+  gap: 0px;
 }
 
 
@@ -1220,7 +1230,7 @@ display: flex;
   width: 350px;
 }
 
-.chapter-box img{
+#images{
     width: 100%;
 }
 
@@ -1422,11 +1432,23 @@ background: #38383a;
 .readPage-spaceing{
     padding: 20px 0px 0px 0px ;
 }
+.span-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.span-box span:first-child{
+  font-size: 28px;
+  width: 400px;
+}
 
 .btns-box{
   gap: 10px;
   padding-left: 15px;
   padding-right: 15px;
+  padding-bottom: 30px;
 }
 
 .btns-box-jos{
