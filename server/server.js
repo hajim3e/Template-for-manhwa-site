@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 
 // Servește fișiere statice din rădăcina proiectului
-app.use(express.static(path.join(__dirname, "..")));  
+app.use(express.static(path.join(__dirname, "../public")));  
 
 // Endpoint pentru lista de capitole
 app.get("/chapters", async (req, res) => {
