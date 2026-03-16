@@ -681,13 +681,6 @@ transition: .3s;
   color: #a1a1a1;
 }
 
-.views{
-  display: flex;
-  justify-content: space-between;
-  padding-left: 5px;
-  color: #a1a1a1;
-}
-
 .autor{
 display: flex;
   justify-content: space-between;
