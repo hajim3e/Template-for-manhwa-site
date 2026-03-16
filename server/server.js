@@ -4,9 +4,11 @@ const path = require("path");
 const { getChapters, getChapterImages } = require("./scraper");
 
 const app = express();
+
+// Permitem orice origine (poți restrânge la frontend-ul tău Netlify dacă vrei)
 app.use(cors({ origin: true }));
 
-// Logging foarte simplu (ajută în Railway să vedem ce requesturi vin)
+// Logging pentru debugging
 app.use((req, res, next) => {
   const start = Date.now();
   res.on("finish", () => {
@@ -16,15 +18,15 @@ app.use((req, res, next) => {
   next();
 });
 
-// Servește fișiere statice din rădăcina proiectului
-app.use(express.static(path.join(__dirname, "../public")));
+// Servește fișiere statice din rădăcina proiectului (unde sunt acum index.html, readpage.html, style.css, etc.)
+app.use(express.static(path.join(__dirname, "..")));
 
-// Health check (folosit de Railway și debugging)
+// Health check
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-// Cache pentru lista de capitole (reduce riscul de timeout în Railway)
+// Cache pentru capitole
 let cachedChapters = null;
 let cachedAt = 0;
 const CHAPTERS_CACHE_TTL = 3 * 60 * 1000; // 3 minute
@@ -40,25 +42,24 @@ async function fetchAndCacheChapters() {
   }
 }
 
+// Endpoint /chapters
 app.get("/chapters", (req, res) => {
   const now = Date.now();
 
-  // Dăm răspuns rapid din cache (dacă există)
   if (cachedChapters && now - cachedAt < CHAPTERS_CACHE_TTL) {
     return res.json(cachedChapters);
   }
 
-  // Dacă nu avem cache, răspundem imediat cu listă goală și pornim unui refresh în background.
   if (!cachedChapters) {
     fetchAndCacheChapters();
     return res.json([]);
   }
 
-  // Dacă cache a expirat, returnăm vechiul cache și actualizăm în background.
   fetchAndCacheChapters();
   return res.json(cachedChapters);
 });
 
+// Endpoint /chapter
 app.get("/chapter", async (req, res) => {
   try {
     const url = req.query.url;
@@ -68,9 +69,6 @@ app.get("/chapter", async (req, res) => {
     res.json(images);
   } catch (err) {
     console.error(err);
-    if (err.response) {
-      return res.status(err.response.status).json({ error: err.response.statusText });
-    }
     res.status(500).json({ error: err.message });
   }
 });
