@@ -69,7 +69,12 @@ async function getChapterImages(url) {
         return images;
 
     } catch (err) {
-        console.error("Error in getChapterImages:", err.message);
+        if (err.response) {
+            // If the chapter page itself returns 404/500, report that clearly
+            console.error(`Error in getChapterImages: ${err.response.status} ${err.response.statusText} for ${url}`);
+        } else {
+            console.error("Error in getChapterImages:", err.message);
+        }
         return [];
     }
 }
