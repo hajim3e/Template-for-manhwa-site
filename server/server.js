@@ -19,12 +19,20 @@ app.use((req, res, next) => {
 });
 
 // Servește fișiere statice din rădăcina proiectului (unde sunt acum index.html, readpage.html, style.css, etc.)
-app.use(express.static(path.join(__dirname, "..")));
+const staticRoot = path.join(__dirname, "..");
+console.log("Static root:", staticRoot);
+app.use(express.static(staticRoot));
+
+// Force / to serve index.html (ensures root works even if express.static fails for some reason)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(staticRoot, "index.html"));
+});
 
 // Health check
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
+
 
 // Cache pentru capitole
 let cachedChapters = null;
@@ -73,7 +81,7 @@ app.get("/chapter", async (req, res) => {
   }
 });
 
-// Pornim serverul
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
