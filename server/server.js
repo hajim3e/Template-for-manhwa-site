@@ -8,25 +8,6 @@ app.use(cors());
 
 
 
-//VIEW COUNTER 
-let views = 0;
-
-if (fs.existsSync("views.txt")) {
-    views = parseInt(fs.readFileSync("views.txt"));
-}
-
-app.use((req, res, next) => {
-
-    // numărăm doar accesul la pagina principală
-    if (req.path === "/" || req.path === "/index.html") {
-        views++;
-        fs.writeFileSync("views.txt", views.toString());
-        console.log("Site visits:", views);
-    }
-
-    next();
-});
-
 
 // Servește fișiere statice din rădăcina proiectului
 app.use(express.static(path.join(__dirname, "../public")));  
