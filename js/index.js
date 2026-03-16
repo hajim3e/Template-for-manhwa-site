@@ -96,24 +96,143 @@ function sendEmail(issueId, descId) {
 
 
     // Fetch capitole și populare pentru toate box-Ch
-    fetch("http://localhost:3000/chapters")
-    .then(res => res.json())
-    .then(data => {
-        const boxes = document.querySelectorAll(".box-Ch"); // toate div-urile box-Ch
+    let allChapters = [];
+    // Start with descending order (newest/biggest first)
+    let sortAscending = false;
+
+    const searchInput = document.getElementById("searchCh");
+    const searchInputPhone = document.getElementById("searchChPhone");
+    const sortButtons = Array.from(document.querySelectorAll("#btnSortare"));
+    const arrowIcons = Array.from(document.querySelectorAll("#arrowupIcon"));
+
+    const parseChapterNumber = (title) => {
+        const match = /\b(Chapter|Capitolul)\s*(\d+)\b/i.exec(title);
+        return match ? Number(match[2]) : null;
+    };
+
+    const getFilterValue = () => {
+        const desktop = searchInput?.value.trim();
+        const phone = searchInputPhone?.value.trim();
+        if (desktop) return desktop;
+        if (phone) return phone;
+        return "";
+    };
+
+    const renderChapters = (chapters) => {
+        const boxes = document.querySelectorAll(".box-Ch");
 
         boxes.forEach(container => {
-            container.innerHTML = ""; // curățăm containerul înainte
+            container.innerHTML = "";
 
-            data.forEach(ch => {
+            chapters.forEach(ch => {
                 const a = document.createElement("a");
                 a.href = "readpage.html?url=" + encodeURIComponent(ch.link);
                 a.innerText = ch.title;
-
                 container.appendChild(a);
             });
         });
-    })
-    .catch(err => console.error("Fetch chapters error:", err));
+    };
+
+    const applyFilterAndSort = () => {
+        const filterValue = getFilterValue();
+
+        let filtered = allChapters.slice();
+
+        if (filterValue) {
+            const filterNumber = Number(filterValue);
+            if (!Number.isNaN(filterNumber)) {
+                filtered = filtered.filter(ch => {
+                    const num = parseChapterNumber(ch.title);
+                    return num !== null && num.toString().startsWith(filterNumber.toString());
+                });
+            } else {
+                // If user types non-numeric, fallback on substring matching
+                filtered = filtered.filter(ch => ch.title.toLowerCase().includes(filterValue.toLowerCase()));
+            }
+        }
+
+        filtered.sort((a, b) => {
+            const aNum = parseChapterNumber(a.title);
+            const bNum = parseChapterNumber(b.title);
+
+            if (aNum == null || bNum == null) return 0;
+            return sortAscending ? aNum - bNum : bNum - aNum;
+        });
+
+        renderChapters(filtered);
+    };
+
+    const updateArrowRotation = () => {
+        arrowIcons.forEach(icon => {
+            icon.style.transform = sortAscending ? "rotate(0deg)" : "rotate(180deg)";
+            icon.style.transition = "transform 0.2s";
+        });
+    };
+
+    sortButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            sortAscending = !sortAscending;
+            updateArrowRotation();
+            applyFilterAndSort();
+        });
+    });
+
+    // Ensure the arrow is correct on initial load
+    updateArrowRotation();
+
+    [searchInput, searchInputPhone].forEach(input => {
+        if (!input) return;
+        input.addEventListener("input", () => {
+            applyFilterAndSort();
+        });
+    });
+
+    fetch("https://template-for-manhwa-site-production.up.railway.app/chapters")
+        .then(res => res.json())
+        .then(data => {
+            allChapters = data;
+
+            // Update total chapters display (desktop + phone)
+            document.querySelectorAll('#totalCh').forEach(el => {
+                el.textContent = `${allChapters.length}`;
+            });
+
+            // Update the 'First Chapter' / 'Last Chapter' quick buttons
+            const parseChapterNumber = (title) => {
+                const match = /\b(Chapter|Capitolul)\s*(\d+)\b/i.exec(title);
+                return match ? Number(match[2]) : null;
+            };
+
+            const sortedByNum = [...allChapters].sort((a, b) => {
+                const aNum = parseChapterNumber(a.title);
+                const bNum = parseChapterNumber(b.title);
+                if (aNum == null || bNum == null) return 0;
+                return aNum - bNum;
+            });
+
+            const first = sortedByNum[0];
+            const last = sortedByNum[sortedByNum.length - 1];
+
+            document.querySelectorAll('.chBtns-cutie').forEach(container => {
+                const firstLink = container.querySelector('a:first-child');
+                const lastLink = container.querySelector('a:last-child');
+
+                if (first && firstLink) {
+                    firstLink.href = `readpage.html?url=${encodeURIComponent(first.link)}`;
+                    const spans = firstLink.querySelectorAll('span');
+                    if (spans.length >= 2) spans[1].textContent = `Chapter ${parseChapterNumber(first.title) ?? ''}`;
+                }
+
+                if (last && lastLink) {
+                    lastLink.href = `readpage.html?url=${encodeURIComponent(last.link)}`;
+                    const spans = lastLink.querySelectorAll('span');
+                    if (spans.length >= 2) spans[1].textContent = `Chapter ${parseChapterNumber(last.title) ?? ''}`;
+                }
+            });
+
+            applyFilterAndSort();
+        })
+        .catch(err => console.error("Fetch chapters error:", err));
 
 
 
@@ -122,14 +241,7 @@ function sendEmail(issueId, descId) {
 });
 
 
-//footer fetch
 
-async function loadFooterReading() {
-  const res = await fetch('/components/footer.html');
-  const data = await res.text();
-  document.getElementById('footer-show').innerHTML = data;
-}
-loadFooterReading();
 
 
 

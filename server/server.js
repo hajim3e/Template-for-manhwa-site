@@ -6,6 +6,28 @@ const { getChapters, getChapterImages } = require("./scraper");
 const app = express();
 app.use(cors());
 
+
+
+//VIEW COUNTER 
+let views = 0;
+
+if (fs.existsSync("views.txt")) {
+    views = parseInt(fs.readFileSync("views.txt"));
+}
+
+app.use((req, res, next) => {
+
+    // numărăm doar accesul la pagina principală
+    if (req.path === "/" || req.path === "/index.html") {
+        views++;
+        fs.writeFileSync("views.txt", views.toString());
+        console.log("Site visits:", views);
+    }
+
+    next();
+});
+
+
 // Servește fișiere statice din rădăcina proiectului
 app.use(express.static(path.join(__dirname, "../public")));  
 
@@ -34,6 +56,7 @@ app.get("/chapter", async (req, res) => {
 });
 
 // Pornim serverul
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
