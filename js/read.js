@@ -83,7 +83,10 @@ if (!url) {
 } else {
   console.log("Fetching chapters for:", url);
 
-  const API_BASE = window.location.origin;
+  const FALLBACK_API_BASE = "https://template-for-manhwa-site-production.up.railway.app";
+  const API_BASE = (window.location.protocol === "file:" || window.location.origin === "null")
+    ? FALLBACK_API_BASE
+    : window.location.origin;
 
   fetch(`${API_BASE}/chapters`)
     .then(res => res.json())
