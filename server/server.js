@@ -5,10 +5,8 @@ const { getChapters, getChapterImages } = require("./scraper");
 
 const app = express();
 
-// Permitem orice origine (poți restrânge la frontend-ul tău Netlify dacă vrei)
 app.use(cors({ origin: true }));
 
-// Logging pentru debugging
 app.use((req, res, next) => {
   const start = Date.now();
   res.on("finish", () => {
@@ -18,7 +16,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Servește fișiere statice din rădăcina proiectului (unde sunt acum index.html, readpage.html, style.css, etc.)
 const staticRoot = path.join(__dirname, "..");
 console.log("Static root:", staticRoot);
 app.use(express.static(staticRoot));
@@ -34,10 +31,9 @@ app.get("/health", (req, res) => {
 });
 
 
-// Cache pentru capitole
 let cachedChapters = null;
 let cachedAt = 0;
-const CHAPTERS_CACHE_TTL = 3 * 60 * 1000; // 3 minute
+const CHAPTERS_CACHE_TTL = 3 * 60 * 1000; 
 
 async function fetchAndCacheChapters() {
   try {
@@ -50,7 +46,6 @@ async function fetchAndCacheChapters() {
   }
 }
 
-// Endpoint /chapters
 app.get("/chapters", async (req, res) => {
   const now = Date.now();
 
@@ -58,12 +53,10 @@ app.get("/chapters", async (req, res) => {
     return res.json(cachedChapters);
   }
 
-  // Dacă nu avem chiar acum cache, băgăm date și răspundem când termină
   await fetchAndCacheChapters();
   return res.json(cachedChapters || []);
 });
 
-// Endpoint /chapter (by full URL)
 app.get("/chapter", async (req, res) => {
   try {
     const url = req.query.url;
@@ -77,13 +70,11 @@ app.get("/chapter", async (req, res) => {
   }
 });
 
-// Endpoint /chapter/:num (finds chapter URL by number using cached chapters)
 app.get("/chapter/:num", async (req, res) => {
   try {
     const num = Number(req.params.num);
     if (!Number.isFinite(num)) return res.status(400).json({ error: "Invalid chapter number" });
 
-    // Ensure we have a recent cached list
     const now = Date.now();
     if (!cachedChapters || now - cachedAt >= CHAPTERS_CACHE_TTL) {
       await fetchAndCacheChapters();
@@ -102,7 +93,6 @@ app.get("/chapter/:num", async (req, res) => {
   }
 });
 
-// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

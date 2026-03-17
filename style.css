@@ -618,7 +618,7 @@ transition: .3s;
     background: rgba(243, 115, 141, 0.5);
 }
 
-/*partea dreapta cover/details*/
+/*right side cover/details*/
 
 .container-cover{
   width: 250px;
@@ -1025,7 +1025,7 @@ display: flex;
 
 
 
-/*Btns jos*/
+/*Btns down*/
 
 .btns-box-jos{
   display: flex;

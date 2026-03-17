@@ -105,14 +105,14 @@ if (!url) {
     .then(images => {
       console.log("Images received:", images);
 
-      const container = document.querySelector("#images"); // aici punem pozele
+      const container = document.querySelector("#images"); 
 
       if (!container) {
         console.error("Container #images not found!");
         return;
       }
 
-      container.innerHTML = ""; // curățăm containerul
+      container.innerHTML = ""; 
 
       if (!Array.isArray(images) || images.length === 0) {
         const msg = document.createElement("p");

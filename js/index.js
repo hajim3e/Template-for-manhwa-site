@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-// Slider Chapters/BugPage Phone / slider smooth
+// Slider Chapters/BugPage Phone / slider 
 const chPagePhone = document.getElementById('chaptersPagePhone');
 const bugPagePhone = document.getElementById('bugPagePhone');
 const showChPhoneBtn = document.getElementById('showChPhone');
@@ -69,7 +69,7 @@ document.getElementById("reportFormSubmitPhone").addEventListener("click", funct
   sendEmail("issueTypePhone", "descriptionPhone");
 });
 
-// Funcție comună
+
 function sendEmail(issueId, descId) {
   const issueType = document.getElementById(issueId).value;
   const description = document.getElementById(descId).value;

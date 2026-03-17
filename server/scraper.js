@@ -3,7 +3,6 @@ const cheerio = require("cheerio");
 
 const BASE_URL = "https://arenascan.com/manga/the-demon-king-overrun-by-heroes/";
 
-// Fetch lista de chaptere
 async function getChapters() {
     try {
         const { data } = await axios.get(BASE_URL, {
@@ -36,7 +35,6 @@ async function getChapters() {
     }
 }
 
-// Fetch imaginile unui capitol din HTML (dat fiind că scripturile pot evolua în timp)
 async function getChapterImages(url) {
     try {
         if (!url || !url.startsWith("http")) {
@@ -49,7 +47,6 @@ async function getChapterImages(url) {
             },
         });
 
-        // 1) Preferăm obiectul JSON trecut către ts_reader.run(...) (cel mai stabil)
         const tsReaderMatch = data.match(/ts_reader\.run\(\s*(\{[\s\S]*?\})\s*\)\s*;/);
         if (tsReaderMatch) {
             let payload;
@@ -76,7 +73,6 @@ async function getChapterImages(url) {
             }
         }
 
-        // 2) Backup: extragem direct tag-urile <img> din readerarea
         const $ = cheerio.load(data);
         const imgs = [];
         $("#readerarea img.ts-main-image").each((i, img) => {
