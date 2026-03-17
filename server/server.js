@@ -51,23 +51,19 @@ async function fetchAndCacheChapters() {
 }
 
 // Endpoint /chapters
-app.get("/chapters", (req, res) => {
+app.get("/chapters", async (req, res) => {
   const now = Date.now();
 
   if (cachedChapters && now - cachedAt < CHAPTERS_CACHE_TTL) {
     return res.json(cachedChapters);
   }
 
-  if (!cachedChapters) {
-    fetchAndCacheChapters();
-    return res.json([]);
-  }
-
-  fetchAndCacheChapters();
-  return res.json(cachedChapters);
+  // Dacă nu avem chiar acum cache, băgăm date și răspundem când termină
+  await fetchAndCacheChapters();
+  return res.json(cachedChapters || []);
 });
 
-// Endpoint /chapter
+// Endpoint /chapter (by full URL)
 app.get("/chapter", async (req, res) => {
   try {
     const url = req.query.url;
@@ -75,6 +71,31 @@ app.get("/chapter", async (req, res) => {
 
     const images = await getChapterImages(url);
     res.json(images);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Endpoint /chapter/:num (finds chapter URL by number using cached chapters)
+app.get("/chapter/:num", async (req, res) => {
+  try {
+    const num = Number(req.params.num);
+    if (!Number.isFinite(num)) return res.status(400).json({ error: "Invalid chapter number" });
+
+    // Ensure we have a recent cached list
+    const now = Date.now();
+    if (!cachedChapters || now - cachedAt >= CHAPTERS_CACHE_TTL) {
+      await fetchAndCacheChapters();
+    }
+
+    const chapter = (cachedChapters || []).find(c => c.num === num || (c.title || "").includes(`${num}`));
+    if (!chapter) {
+      return res.status(404).json({ error: "Chapter not found in list" });
+    }
+
+    const images = await getChapterImages(chapter.link);
+    res.json({ chapter, images });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });

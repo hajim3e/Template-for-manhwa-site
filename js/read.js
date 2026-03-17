@@ -83,7 +83,9 @@ if (!url) {
 } else {
   console.log("Fetching chapters for:", url);
 
-  fetch("https://template-for-manhwa-site-production.up.railway.app/chapters")
+  const API_BASE = window.location.origin;
+
+  fetch(`${API_BASE}/chapters`)
     .then(res => res.json())
     .then(chapters => {
       buildChapterSelects(chapters, url);
@@ -97,7 +99,7 @@ if (!url) {
 
       updateNavigationButtons(chapters, url);
 
-      return fetch("https://template-for-manhwa-site-production.up.railway.app/chapter?url=" + encodeURIComponent(url));
+      return fetch(`${API_BASE}/chapter?url=` + encodeURIComponent(url));
     })
     .then(res => res.json())
     .then(images => {

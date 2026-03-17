@@ -3,18 +3,29 @@ const cheerio = require("cheerio");
 
 const BASE_URL = "https://arenascan.com/manga/the-demon-king-overrun-by-heroes/";
 
-// Fetch lista de chaptere (aici rămâne la fel)
+// Fetch lista de chaptere
 async function getChapters() {
     try {
-        const { data } = await axios.get(BASE_URL);
+        const { data } = await axios.get(BASE_URL, {
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            },
+        });
+
         const $ = cheerio.load(data);
         const chapters = [];
 
-        $("#chapterlist li a").each((i, el) => {
-            const title = $(el).find(".chapternum").text().trim();
-            const link = $(el).attr("href");
+        $("#chapterlist li").each((i, li) => {
+            const $li = $(li);
+            const $a = $li.find("a").first();
+            const title = $a.find(".chapternum").text().trim();
+            const date = $a.find(".chapterdate").text().trim();
+            const link = $a.attr("href");
+            const dataNum = $li.attr("data-num");
+            const num = dataNum ? Number(dataNum) : (title.match(/\d+/)?.[0] ? Number(title.match(/\d+/)[0]) : null);
+
             if (link) {
-                chapters.push({ title, link });
+                chapters.push({ num, title, date, link });
             }
         });
 
@@ -25,52 +36,57 @@ async function getChapters() {
     }
 }
 
-// Fetch imaginile unui capitol direct din HTML (ts_reader.run) — mai stabil când AJAX-ul se schimbă
+// Fetch imaginile unui capitol din HTML (dat fiind că scripturile pot evolua în timp)
 async function getChapterImages(url) {
     try {
         if (!url || !url.startsWith("http")) {
             throw new Error("Invalid URL");
         }
 
-        // Obținem HTML-ul capitolului
         const { data } = await axios.get(url, {
             headers: {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
             },
         });
 
-        // Căutăm obiectul JSON pasat la ts_reader.run({...});
-        const match = data.match(/ts_reader\.run\(\s*(\{[\s\S]*?\})\s*\)\s*;/);
-        if (!match) {
-            console.error("Error in getChapterImages: ts_reader.run data not found");
-            return [];
+        // 1) Preferăm obiectul JSON trecut către ts_reader.run(...) (cel mai stabil)
+        const tsReaderMatch = data.match(/ts_reader\.run\(\s*(\{[\s\S]*?\})\s*\)\s*;/);
+        if (tsReaderMatch) {
+            let payload;
+            try {
+                payload = JSON.parse(tsReaderMatch[1]);
+            } catch (jsonErr) {
+                const cleaned = tsReaderMatch[1]
+                    .replace(/,\s*([}\]])/g, "$1")
+                    .replace(/\r?\n/g, " ");
+                payload = JSON.parse(cleaned);
+            }
+
+            const images = [];
+            if (payload.sources && Array.isArray(payload.sources)) {
+                payload.sources.forEach(source => {
+                    if (Array.isArray(source.images)) {
+                        images.push(...source.images);
+                    }
+                });
+            }
+
+            if (images.length) {
+                return images;
+            }
         }
 
-        let payload;
-        try {
-            payload = JSON.parse(match[1]);
-        } catch (jsonErr) {
-            // În caz că există virgule finale (trailing commas), eliminăm înainte de parse
-            const cleaned = match[1]
-                .replace(/,\s*([}\]])/g, "$1")
-                .replace(/\r?\n/g, " ");
-            payload = JSON.parse(cleaned);
-        }
+        // 2) Backup: extragem direct tag-urile <img> din readerarea
+        const $ = cheerio.load(data);
+        const imgs = [];
+        $("#readerarea img.ts-main-image").each((i, img) => {
+            const src = $(img).attr("src");
+            if (src) imgs.push(src);
+        });
 
-        const images = [];
-        if (payload.sources && Array.isArray(payload.sources)) {
-            payload.sources.forEach(source => {
-                if (Array.isArray(source.images)) {
-                    images.push(...source.images);
-                }
-            });
-        }
-
-        return images;
-
+        return imgs;
     } catch (err) {
         if (err.response) {
-            // If the chapter page itself returns 404/500, report that clearly
             console.error(`Error in getChapterImages: ${err.response.status} ${err.response.statusText} for ${url}`);
         } else {
             console.error("Error in getChapterImages:", err.message);
