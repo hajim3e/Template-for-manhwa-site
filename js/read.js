@@ -83,7 +83,7 @@ if (!url) {
 } else {
   console.log("Fetching chapters for:", url);
 
-  const FALLBACK_API_BASE = "https://template-for-manhwa-site-production-f1f8.up.railway.app";
+  const FALLBACK_API_BASE = "https://manhwa-site.onrender.com";
   const API_BASE = (window.location.protocol === "file:" || window.location.origin === "null")
     ? FALLBACK_API_BASE
     : window.location.origin;
