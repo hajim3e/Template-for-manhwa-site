@@ -188,7 +188,7 @@ function sendEmail(issueId, descId) {
     });
 
     // Use local backend by default, but fall back to the public Railway URL when running from file:// or when the origin is null
-    const FALLBACK_API_BASE = "https://template-for-manhwa-site-production.up.railway.app";
+    const FALLBACK_API_BASE = "https://template-for-manhwa-site-production-f1f8.up.railway.app";
     const API_BASE = (window.location.protocol === "file:" || window.location.origin === "null")
         ? FALLBACK_API_BASE
         : window.location.origin;
