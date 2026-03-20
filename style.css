@@ -783,27 +783,7 @@ display: flex;
   background: linear-gradient(to right, transparent, #555, transparent);
 }
 
-.cutie-footer button{
-  width: 140px;
-  height: 40px;
-  
-  color: white;
-  font-family: Poppins;
-  background: rgba(255, 0, 50, 0.5);
 
-  border: none;
-  border-radius: 10px;
-
-  cursor: default;
-}
-
-.cutie-footer button:hover{
-  background: rgba(243, 104, 132, 0.5);
-}
-
-.cutie-footer button:active{
-  background: rgba(248, 176, 190, 0.5);
-}
 
 .cutie-foot-txt-jos{
   display: flex;

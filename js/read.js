@@ -84,9 +84,13 @@ if (!url) {
   console.log("Fetching chapters for:", url);
 
   const FALLBACK_API_BASE = "https://manhwa-site.onrender.com";
-  const API_BASE = (window.location.protocol === "file:" || window.location.origin === "null")
+  const origin = window.location.origin;
+  const isLocalhost = origin.startsWith("http://localhost") || origin.startsWith("http://127.0.0.1") || origin.startsWith("http://[::1]");
+  const API_BASE = (window.location.protocol === "file:" || window.location.origin === "null" || !isLocalhost)
     ? FALLBACK_API_BASE
-    : window.location.origin;
+    : origin;
+
+  console.log("[API] using base:", API_BASE);
 
   fetch(`${API_BASE}/chapters`)
     .then(res => res.json())
