@@ -928,6 +928,10 @@ display: flex;
   padding-left: 10px;
 }
 
+.chapter-select::-webkit-scrollbar{
+   width: 5px;
+}
+
 .chapter-select:focus{
   border: 1px solid rgba(255, 0, 50, 1); 
 }
@@ -1072,6 +1076,9 @@ display: flex;
   width: 800px;
   height: fit-content;
   object-fit: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 0%;
 }
 
 

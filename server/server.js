@@ -96,5 +96,6 @@ app.get("/chapter/:num", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Link: localhost:3000`);
   fetchAndCacheChapters();
 });
