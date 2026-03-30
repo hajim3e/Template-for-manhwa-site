@@ -7,32 +7,18 @@
 
 /*SCROLLBAR */
 
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #ff4d4d #111;
-}
-
 /* Chrome, Edge, Safari */
 ::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
-
-/* track */
-::-webkit-scrollbar-track {
-  background: #111;
-  border-radius: 10px;
+::-webkit-scrollbar-button {
+    display: none;
 }
-
-/* thumb */
 ::-webkit-scrollbar-thumb {
-  background: #ff4d4d;
-  border-radius: 10px;
-  border: 1px solid #111;
+    background: #ff4d4d;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: #ff0000;
+::-webkit-scrollbar-track {
+    background: #000;
 }
 
 

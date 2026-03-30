@@ -131,6 +131,7 @@ if (!url) {
       images.forEach(src => {
         const img = document.createElement("img");
         img.src = src;
+        img.loading = "lazy";
         img.style.width = "100%";
         container.appendChild(img);
       });
